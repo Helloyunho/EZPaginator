@@ -1,34 +1,98 @@
-## EZPaginator
-사용하기 쉬운 discord.py의 페이징 구현, EZPaginator입니다.
+# ezpaginator
 
+[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
+[![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-## Example
-```py
-import discord
-from EZpaginator import Paginator
+Make discord emoji page easy
 
+## Table of Contents
 
-class Example(discord.Client):
-    async def on_message(self, message):
-        ## 일반 메시지 
-        if message.content == '!페이징':
-            msg = await message.channel.send("페이지1")
-            contents = ['페이지1', '페이지2', '페이지3']
+- [Install](#install)
+- [Usage](#usage)
+- [API](#api)
+- [Maintainers](#maintainers)
+- [Contributing](#contributing)
+- [License](#license)
 
-            page = Paginator(self, msg, contents=contents)
-            await page.start()
+## Install
 
-        ## Embed 
-        elif message.content == '!페이징2':
-            embed1=discord.Embed(title="Embed1", description="embed1")
-            embed2=discord.Embed(title="Embed2", description="embed2")
-            embed3=discord.Embed(title="Embed3", description="embed3")
-            embeds = [embed1, embed2, embed3]
-
-            msg = await message.channel.send(embed=embed)
-            page = Paginator(self, msg, embeds=embeds)
-            await page.start()
-
-client = Example()
-client.run('token')
 ```
+npm install ez-paginator # Use yarn if you prefer to use yarn
+```
+
+## Usage
+
+Example:
+
+```js
+// Assume that you're using discord.js
+// Eris example and this same example are in example folder
+const { Client } = require('discord.js');
+const EZPaginator = require('../index');
+
+const client = new Client();
+
+client.on('message', async (msg) => {
+  if (msg.content.startsWith('> test')) {
+    const message = await msg.channel.send('Test');
+    const paginator = new EZPaginator({
+      client,
+      msg: message,
+      contents: ['Test', 'Another!']
+    });
+
+    paginator.start();
+  }
+});
+
+client.login('Your Token');
+```
+
+## API
+
+### `Paginator(options)`
+
+Paginator, make discord emoji page easy.
+
+### Constructor
+
+#### new Paginator(options)
+
+Constructor
+
+#### Parameters:
+
+| Name    | Type     | Description |
+| ------- | -------- | ----------- |
+| options | `Object` | Options     |
+
+#### Properties:
+
+| Name      | Type             | Description                                                                            |
+| --------- | ---------------- | -------------------------------------------------------------------------------------- |
+| client    | `Object`         | Discord.js or Eris Client                                                              |
+| msg       | `Object`         | Message Class                                                                          |
+| contents  | `Array.<string>` | Contents                                                                               |
+| embeds    | `Array.<Object>` | Embeds (This will overrides contents)                                                  |
+| timeout   | `number`         | Reaction timeout                                                                       |
+| reactions | `Array.<string>` | Reactions, first element will move page to prev, and second element will move to next. |
+
+### Methods
+
+#### `(async)` start()
+
+Start Function
+
+## Maintainers
+
+[@Helloyunho](https://github.com/Helloyunho)
+
+## Contributing
+
+PRs accepted.
+
+Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
+
+## License
+
+MIT © 2020 Helloyunho
