@@ -1,19 +1,19 @@
 {
   "name": "ez-paginator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Make discord emoji page easy",
   "main": "index.js",
   "repository": "https://github.com/Helloyunho/EZPaginator.git",
   "author": "Helloyunho <yunho050840@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "discord.js": "^12.1.1",
+    "eris": "^0.11.2",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1",
-    "discord.js": "^12.1.1",
-    "eris": "^0.11.2"
+    "eslint-plugin-standard": "^4.0.1"
   }
 }
