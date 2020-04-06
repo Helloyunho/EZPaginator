@@ -41,7 +41,7 @@ class Paginator {
     }
 
     if (this.contents.length === 0 && this.embeds.length === 0) {
-      throw new Error('LLama ate all of your contents and embeds.')
+      throw new Error('At least contents should provided.')
     }
 
     this.isEmbed = this.contents.length === 0
