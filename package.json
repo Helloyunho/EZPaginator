@@ -1,6 +1,6 @@
 {
   "name": "ez-paginator",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Make discord emoji page easy",
   "main": "index.js",
   "repository": "https://github.com/Helloyunho/EZPaginator.git",
