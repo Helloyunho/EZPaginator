@@ -3,3 +3,5 @@ test
 package-lock.json
 yarn.lock
 out
+yarn-error.log
+.vscode

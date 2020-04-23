@@ -18,18 +18,27 @@ class Paginator {
     contents = [],
     embeds = [],
     timeout = 30,
-    reactions = ['⬅️', '➡️']
+    reactions,
+    moreReactions = false
   }) {
     this.client = client
     this.msg = msg
     this.contents = contents
     this.embeds = embeds
     this.timeout = timeout
-    this.reactions = reactions
     this.index = 0
-    this.isEmbed = false
     this.isEris = false
+    this.reactions = []
+    this.moreReactions = moreReactions
     this.UserClass = {}
+
+    if (typeof reactions === 'undefined') {
+      if (moreReactions) {
+        this.reactions = ['⏪', '⬅️', '➡️', '⏩']
+      } else {
+        this.reactions = ['⬅️', '➡️']
+      }
+    }
 
     if (typeof client.startTime !== 'undefined') {
       this.isEris = true
@@ -42,6 +51,12 @@ class Paginator {
 
     if (this.contents.length === 0 && this.embeds.length === 0) {
       throw new Error('At least contents should provided.')
+    }
+
+    if (this.moreReactions && this.reactions.length < 4) {
+      throw new Error('More reactions mode needs at least 4 reaction emojis.')
+    } else if (!this.moreReactions && this.reactions.length < 2) {
+      throw new Error('Normal reactions mode needs at least 2 reaction emojis.')
     }
 
     this.isEmbed = this.contents.length === 0
@@ -74,14 +89,18 @@ class Paginator {
     })
   }
 
+  updateMessage () {
+    if (this.isEmbed) {
+      this.msg.edit({ embed: this.embeds[this.index] })
+    } else {
+      this.msg.edit({ content: this.contents[this.index] })
+    }
+  }
+
   goPrev () {
     if (this.index !== 0) {
       this.index--
-      if (this.isEmbed) {
-        this.msg.edit({ embed: this.embeds[this.index] })
-      } else {
-        this.msg.edit({ content: this.contents[this.index] })
-      }
+      this.updateMessage()
     }
   }
 
@@ -92,20 +111,48 @@ class Paginator {
         : this.contents.length - 1
     ) {
       this.index++
-      if (this.isEmbed) {
-        this.msg.edit({ embed: this.embeds[this.index] })
-      } else {
-        this.msg.edit({ content: this.contents[this.index] })
-      }
+      this.updateMessage()
+    }
+  }
+
+  goFirst () {
+    if (this.index !== 0) {
+      this.index = 0
+      this.updateMessage()
+    }
+  }
+
+  goLast () {
+    if (
+      this.index !== this.isEmbed
+        ? this.embeds.length - 1
+        : this.contents.length - 1
+    ) {
+      this.index = this.isEmbed
+        ? this.embeds.length - 1
+        : this.contents.length - 1
+      this.updateMessage()
     }
   }
 
   async pagination (reactions) {
     const reaction = this.isEris ? reactions : reactions.values().next().value
-    if (reaction.emoji.toString() === this.reactions[0]) {
-      this.goPrev()
-    } else if (reaction.emoji.toString() === this.reactions[1]) {
-      this.goNext()
+    if (this.moreReactions) {
+      if (reaction.emoji.toString() === this.reactions[0]) {
+        this.goFirst()
+      } else if (reaction.emoji.toString() === this.reactions[1]) {
+        this.goPrev()
+      } else if (reaction.emoji.toString() === this.reactions[2]) {
+        this.goNext()
+      } else if (reaction.emoji.toString() === this.reactions[3]) {
+        this.goLast()
+      }
+    } else {
+      if (reaction.emoji.toString() === this.reactions[0]) {
+        this.goPrev()
+      } else if (reaction.emoji.toString() === this.reactions[1]) {
+        this.goNext()
+      }
     }
 
     if (this.isEris) {

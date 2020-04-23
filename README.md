@@ -68,14 +68,15 @@ Constructor
 
 #### Properties:
 
-| Name      | Type             | Description                                                                            |
-| --------- | ---------------- | -------------------------------------------------------------------------------------- |
-| client    | `Object`         | Discord.js or Eris Client                                                              |
-| msg       | `Object`         | Message Class                                                                          |
-| contents  | `Array.<string>` | Contents                                                                               |
-| embeds    | `Array.<Object>` | Embeds (This will overrides contents)                                                  |
-| timeout   | `number`         | Reaction timeout                                                                       |
-| reactions | `Array.<string>` | Reactions, first element will move page to prev, and second element will move to next. |
+| Name          | Type             | Description                                                                                                                                                                                                                                                     |
+| ------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| client        | `Object`         | Discord.js or Eris Client                                                                                                                                                                                                                                       |
+| msg           | `Object`         | Message Class                                                                                                                                                                                                                                                   |
+| contents      | `Array.<string>` | Contents                                                                                                                                                                                                                                                        |
+| embeds        | `Array.<Object>` | Embeds (This will overrides contents)                                                                                                                                                                                                                           |
+| timeout       | `number`         | Reaction timeout                                                                                                                                                                                                                                                |
+| reactions     | `Array.<string>` | Reactions, first element will move page to prev, and second element will move to next. (If more reactions mode is enabled, first element will move page to first, second and third is same as normal reactions mode, and fourth element will move page to end.) |
+| moreReactions | `boolean`        | Enables more reactions mode                                                                                                                                                                                                                                     |
 
 ### Methods
 

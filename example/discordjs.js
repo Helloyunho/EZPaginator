@@ -5,11 +5,12 @@ const client = new Client()
 
 client.on('message', async msg => {
   if (msg.content.startsWith('> test')) {
-    const message = await msg.channel.send('Test')
+    const message = await msg.channel.send('Test!')
     const paginator = new EZPaginator({
       client,
       msg: message,
-      contents: ['Test', 'Another!']
+      contents: ['Test!', 'Another!', 'And another!', 'Good!'],
+      moreReactions: true
     })
 
     paginator.start()
